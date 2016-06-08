@@ -1,0 +1,42 @@
+<html>
+  <button id="clickable">Click me!</button>
+</html>
+
+<script>
+// $Dojo should be a function that returns an object (an html element object) based on the ID that was passed as a parameter to it.
+// The object returned by the $Dojo function should have 2 added methods "click" and "hover"
+// The click method that you attach to the object returned by the $Dojo function should take in 1 parameter which is a callback that gets run on that event.
+// The hover method that you attach to the object returned by the $Dojo function should take in 2 parameters (what happens when you hover in and what happens when you hover out)
+// Your code should be wrapped in an immediate function that returns the $Dojo function
+
+function $Dojo(id) {
+    var obj = {
+      id : id,
+      click : (function(callback) {
+          var x = document.getElementById(id);
+          x.addEventListener("click", callback);
+      }),
+
+      hover : (function(callbackIn,callbackOut) {
+        var x = document.getElementById(id);
+        x.addEventListener("mouseover", callbackIn);
+        x.addEventListener("mouseout", callbackOut);
+      })
+
+    }
+    return obj;
+  }
+
+// var $Dojo = $Dojo("clickable");
+// console.log($Dojo);
+$Dojo("clickable").click(function() {console.log("The button was clicked!");});
+$Dojo("clickable").hover(
+  function() {
+    console.log("The button was hoverd In!");
+  },
+  function() {
+    console.log("The button was hoverd Out!");
+  }
+  );
+
+</script>
